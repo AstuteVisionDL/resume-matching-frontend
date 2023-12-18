@@ -1,4 +1,4 @@
-import {DropdownMenu, Button, Icon} from '@gravity-ui/uikit';
+import {DropdownMenu, Button, Icon, Col, Row} from '@gravity-ui/uikit';
 import {Sun} from '@gravity-ui/icons';
 
 interface HeaderProps {
@@ -13,10 +13,10 @@ function Header(props: HeaderProps) {
     }
 
     return (
-        <div className="yc-row">
-            <div className="yc-col_s-xl_11 yc-col_s-s_10">
-            </div>
-            <div className="yc-col_s-xl_1 yc-col_s-s_2 yc-s__p_3">
+        <Row space={1} style={{marginTop: "16px"}}>
+            <Col xl={11} s={10}>
+            </Col>
+            <Col xl={1} s={2}>
                 <DropdownMenu
                     switcher={
                         <Button view="flat">
@@ -34,8 +34,8 @@ function Header(props: HeaderProps) {
                         },
                     ]}
                 />
-            </div>
-        </div>
+            </Col>
+        </Row>
     );
 }
 

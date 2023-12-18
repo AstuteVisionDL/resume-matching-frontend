@@ -1,4 +1,4 @@
-import {ThemeProvider, Button} from '@gravity-ui/uikit';
+import {ThemeProvider, Button, Col, Row} from '@gravity-ui/uikit';
 import './App.css'
 import React from "react";
 import {cities, schedules, moves, employments, educations} from "../../constants.ts";
@@ -36,33 +36,37 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Header setTheme={setTheme}/>
-            <div className="yc-row">
-                <div className="yc-col_s-s_1"></div>
-                <div className="yc-row yc-col_s-s_10">
-                    <div className="yc-col_s-xl_6 yc-col_s-s_12 py-32">
-                        <h2 className="yc-text_variant_header-2 text-align-center">
-                            Вакансия
-                        </h2>
-                        <VacancyForm theme={theme} vacancy={vacancy} setVacancy={setVacancy}/>
-                    </div>
-                    <div className="yc-col_s-xl_6 yc-col_s-s_12 py-32">
-                        <h2 className="yc-text_variant_header-2 text-align-center">
-                            Резюме
-                        </h2>
-                        <VacancyForm theme={theme} vacancy={resume} setVacancy={setResume}/>
-                    </div>
-                </div>
-                <div className="yc-col_s-s_1"></div>
-            </div>
-            <div className="yc-row" style={{marginTop: "16px"}}>
-                <div className="yc-col_s-xl_5 yc-col_s-s_4"></div>
-                <div className="yc-row yc-col_s-xl_2 yc-col_s-s_4">
+            <Row space={0}>
+                <Col s={1}>
+                </Col>
+                <Col s={10}>
+                    <Row space={0}>
+                        <Col xl={6} s={12} style={{paddingRight: "32px", paddingLeft: "32px"}}>
+                            <h2 className="yc-text_variant_header-2 text-align-center">
+                                Вакансия
+                            </h2>
+                            <VacancyForm theme={theme} vacancy={vacancy} setVacancy={setVacancy}/>
+                        </Col>
+                        <Col xl={6} s={12} style={{paddingRight: "32px", paddingLeft: "32px"}}>
+                            <h2 className="yc-text_variant_header-2 text-align-center">
+                                Резюме
+                            </h2>
+                            <VacancyForm theme={theme} vacancy={resume} setVacancy={setResume}/>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col s={1}>
+                </Col>
+            </Row>
+            <Row space={1} style={{marginTop: "16px"}}>
+                <Col xl={5} s={4}></Col>
+                <Col xl={2} s={4}>
                     <Button view={"normal"} size={"l"} width={"max"} loading={loading} onClick={matchData}>
                         Сравнить
                     </Button>
-                </div>
-                <div className="yc-col_s-xl_5 yc-col_s-s_4"></div>
-            </div>
+                </Col>
+                <Col xl={5} s={4}></Col>
+            </Row>
             {
                 matchValue &&
                 <div className="yc-row">
