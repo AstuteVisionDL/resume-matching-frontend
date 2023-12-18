@@ -1,11 +1,11 @@
 import {ThemeProvider, Button} from '@gravity-ui/uikit';
 import './App.css'
 import React from "react";
-import Header from "./../../components/Header";
-import VacancyForm from "../../components/VacancyForm";
 import {cities, schedules, moves, employments, educations} from "../../constants.ts";
 import {SingleValue} from "react-select";
 import {VacancyType} from "../../types/vacancy.ts";
+import Header from "../../components/Header";
+import VacancyForm from "../../components/VacancyForm";
 
 const defaultData: VacancyType =  {
     name: "",
