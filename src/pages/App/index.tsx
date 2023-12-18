@@ -6,10 +6,11 @@ import {SingleValue} from "react-select";
 import {VacancyType} from "../../types/vacancy.ts";
 import Header from "../../components/Header";
 import VacancyForm from "../../components/VacancyForm";
+import {match} from "../../api/match.ts";
 
 const defaultData: VacancyType =  {
     name: "",
-    salaryType: "no salary",
+    salaryType: "no",
     salaryData: {value: 0, minValue: 0, maxValue: 0},
     city: cities[0] as SingleValue<{value: string, label: string}>,
     schedule: schedules[0] as SingleValue<{value: string, label: string}>,
@@ -27,10 +28,15 @@ function App() {
 
     const matchData = () => {
         setLoading(true)
-        setTimeout(() => {
-            setLoading(false);
-            setMatchValue(Math.round(Math.random() * 100))
-        }, 1000)
+        match(vacancy, resume)
+            .then(({value}) => {
+                setLoading(false);
+                setMatchValue(Math.round(value))
+            })
+            .catch(() => {
+                setLoading(false);
+                setMatchValue(null);
+            })
     }
 
     return (
@@ -68,7 +74,7 @@ function App() {
                 <Col xl={5} s={4}></Col>
             </Row>
             {
-                matchValue &&
+                matchValue !== null &&
                 <div className="yc-row">
                     <div className="yc-col_s-xl_5 yc-col_s-s_4"></div>
                     <div className="yc-row yc-col_s-xl_2 yc-col_s-s_4">

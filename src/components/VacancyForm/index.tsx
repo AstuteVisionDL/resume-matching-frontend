@@ -15,7 +15,7 @@ const VacancyForm = (props: VacancyFormProps) => {
     const {theme, vacancy, setVacancy} = props;
 
     const salaryOptions: RadioButtonOption[] = [
-        {value: 'no salary', content: 'Не указана'},
+        {value: 'no', content: 'Не указана'},
         {value: 'value', content: 'Значение'},
         {value: 'range', content: 'Диапазон'},
     ];
