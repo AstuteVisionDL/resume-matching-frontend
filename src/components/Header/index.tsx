@@ -14,9 +14,9 @@ function Header(props: HeaderProps) {
 
     return (
         <div className="yc-row">
-            <div className="yc-col_s-xl_11">
+            <div className="yc-col_s-xl_11 yc-col_s-s_10">
             </div>
-            <div className="yc-col_s-xl_1 yc-s__p_3">
+            <div className="yc-col_s-xl_1 yc-col_s-s_2 yc-s__p_3">
                 <DropdownMenu
                     switcher={
                         <Button view="flat">
