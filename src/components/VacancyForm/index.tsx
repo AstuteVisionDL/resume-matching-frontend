@@ -1,19 +1,18 @@
-import React from 'react';
 import Select from 'react-select'
 import {TextInput, Label, RadioButton, RadioButtonOption} from '@gravity-ui/uikit';
-import {schedules, cities, moves, employments, educations} from "../../constants.ts";
+import {cities, schedules, moves, employments, educations} from "../../constants.ts";
 import "./VacancyForm.css"
+import {VacancyType} from "../../types/vacancy.ts";
 
 
 interface VacancyFormProps {
-    theme: string
+    theme: string,
+    vacancy: VacancyType,
+    setVacancy: (vacancy: VacancyType) => void
 }
 
 const VacancyForm = (props: VacancyFormProps) => {
-    const {theme} = props;
-    const [name, setName] = React.useState("");
-    const [salaryType, setSalaryType] = React.useState("no salary");
-    const [salaryData, setSalaryData] = React.useState({value: 0, minValue: 0, maxValue: 0});
+    const {theme, vacancy, setVacancy} = props;
 
     const salaryOptions: RadioButtonOption[] = [
         {value: 'no salary', content: 'Не указана'},
@@ -26,12 +25,10 @@ const VacancyForm = (props: VacancyFormProps) => {
                 <Label size="m">Должность</Label>
                 <TextInput
                     placeholder="Введите здесь название должности"
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
+                    value={vacancy.name}
+                    onChange={(event) => setVacancy({...vacancy, name: event.target.value})}
                     hasClear
                     size="l"
-                    //errorMessage="Поле должно быть заполнено"
-                    //validationState="invalid"
                 />
                 <Label size="m">Зарплата</Label>
                 <div>
@@ -40,12 +37,12 @@ const VacancyForm = (props: VacancyFormProps) => {
                         width="max"
                         defaultValue={salaryOptions[0].value}
                         options={salaryOptions}
-                        value={salaryType}
-                        onChange={(event) => setSalaryType(event.target.value)}
+                        value={vacancy.salaryType}
+                        onChange={(event) => setVacancy({...vacancy, salaryType: event.target.value})}
                     />
                 </div>
                 {
-                    salaryType === 'value'
+                    vacancy.salaryType === 'value'
                     &&
                     <>
                         <div></div>
@@ -53,18 +50,16 @@ const VacancyForm = (props: VacancyFormProps) => {
                             <TextInput
                                 placeholder="Введите здесь название должности"
                                 type="number"
-                                value={salaryData.value.toString()}
-                                onChange={(event) => setSalaryData({...salaryData, value: +event.target.value})}
+                                value={vacancy.salaryData.value.toString()}
+                                onChange={(event) => setVacancy({...vacancy, salaryData: {...vacancy.salaryData, value: +event.target.value}})}
                                 size="l"
-                                //errorMessage="Поле должно быть заполнено"
-                                //validationState="invalid"
                             />
                             <Label size="m">руб.</Label>
                         </div>
                     </>
                 }
                 {
-                    salaryType === 'range'
+                    vacancy.salaryType === 'range'
                     &&
                     <>
                         <div></div>
@@ -73,21 +68,17 @@ const VacancyForm = (props: VacancyFormProps) => {
                             <TextInput
                                 placeholder="Введите здесь название должности"
                                 type="number"
-                                value={salaryData.minValue.toString()}
-                                onChange={(event) => setSalaryData({...salaryData, minValue: +event.target.value})}
+                                value={vacancy.salaryData.minValue.toString()}
+                                onChange={(event) => setVacancy({...vacancy, salaryData: {...vacancy.salaryData, minValue: +event.target.value}})}
                                 size="l"
-                                //errorMessage="Поле должно быть заполнено"
-                                //validationState="invalid"
                             />
                             <Label size="m">До</Label>
                             <TextInput
                                 placeholder="Введите здесь название должности"
                                 type="number"
-                                value={salaryData.maxValue.toString()}
-                                onChange={(event) => setSalaryData({...salaryData, maxValue: +event.target.value})}
+                                value={vacancy.salaryData.maxValue.toString()}
+                                onChange={(event) => setVacancy({...vacancy, salaryData: {...vacancy.salaryData, maxValue: +event.target.value}})}
                                 size="l"
-                                //errorMessage="Поле должно быть заполнено"
-                                //validationState="invalid"
                             />
                         </div>
 
@@ -96,6 +87,8 @@ const VacancyForm = (props: VacancyFormProps) => {
 
                 <Label size="m">Город</Label>
                 <Select
+                    value={vacancy.city}
+                    onChange={option => setVacancy({...vacancy, city: option})}
                     options={cities}
                     placeholder="Введите здесь название города"
                     classNamePrefix={`react-select-${theme}`}
@@ -105,7 +98,8 @@ const VacancyForm = (props: VacancyFormProps) => {
                 <Select
                     options={moves}
                     isSearchable={false}
-                    defaultValue={moves[0]}
+                    value={vacancy.move}
+                    onChange={option => setVacancy({...vacancy, move: option})}
                     placeholder="Выберите подходящий вариант"
                     classNamePrefix={`react-select-${theme}`}
                     noOptionsMessage={ () => "Подходящего варианта не найдено"}
@@ -114,7 +108,8 @@ const VacancyForm = (props: VacancyFormProps) => {
                 <Select
                     options={employments}
                     isSearchable={false}
-                    defaultValue={employments[0]}
+                    value={vacancy.employment}
+                    onChange={option => setVacancy({...vacancy, employment: option})}
                     placeholder="Выберите подходящий вариант"
                     classNamePrefix={`react-select-${theme}`}
                     noOptionsMessage={ () => "Подходящего варианта не найдено"}
@@ -123,7 +118,8 @@ const VacancyForm = (props: VacancyFormProps) => {
                 <Select
                     options={schedules}
                     isSearchable={false}
-                    defaultValue={schedules[0]}
+                    value={vacancy.schedule}
+                    onChange={option => setVacancy({...vacancy, schedule: option})}
                     placeholder="Выберите подходящий вариант"
                     classNamePrefix={`react-select-${theme}`}
                     noOptionsMessage={ () => "Подходящего варианта не найдено"}
@@ -132,7 +128,8 @@ const VacancyForm = (props: VacancyFormProps) => {
                 <Select
                     options={educations}
                     isSearchable={false}
-                    defaultValue={educations[0]}
+                    value={vacancy.education}
+                    onChange={option => setVacancy({...vacancy, education: option})}
                     placeholder="Выберите подходящий вариант"
                     classNamePrefix={`react-select-${theme}`}
                     noOptionsMessage={ () => "Подходящего варианта не найдено"}
